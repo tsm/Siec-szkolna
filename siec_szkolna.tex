@@ -8,6 +8,7 @@
 \usepackage{anysize}
 \usepackage{makeidx}
 \usepackage{hyperref}
+\usepackage{listings}
 
 
 
@@ -77,7 +78,7 @@ Przyjęliśmy następujące założenia odnośnie sieci:
 \item Szkoła posiada dwie pracownie komputerowe na parterze i na pierwszym piętrze, każda z nich liczy po 12 komputerów
 \item Dodatkowo istnieje potrzeba podłączenia do sieci sekretariatu, gabinetu dyrektora oraz komputera w pokoju nauczycielskim
 \item W sieci pracuje również serwer WWW
-\item Adresy komputerów w całej sieci przydzielane są przez DHCP
+\item Adresy komputerów obu pracowni przydzielane są przez DHCP
 \item Sieć będzie działać w topologii rozszerzonej gwiazdy
 \end{itemize}
 \subsection {Urządzenia i okablowanie}
@@ -90,6 +91,19 @@ Kablem skrosowanym połączyliśmy urządzenia tego samego typu (Router-Komputer
 \section{Konfiguracja}
 \subsection {Konfigurcja routera R1}
 
+\subsection {DHCP}
+Router R1 będzie przydzielał adresy IP dla komputerów obu pracowni, w tym celu należy go odpowienio skonfigurować:
+\begin{lstlisting}
+R1(config)#ip dhcp pool PracowniaParter
+R1(dhcp-config)#network 193.0.1.0 255.255.255.0
+R1(dhcp-config)#default-router 193.0.1.1
+
+R1(config)#ip dhcp pool PracowniaPietro
+R1(dhcp-config)#network 193.0.2.0 255.255.255.0
+R1(dhcp-config)#default-router 193.0.2.1
+
+s
+\end{lstlisting}
 \section{Podsumowanie i wnioski}
 
 \end{document}
