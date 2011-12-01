@@ -207,18 +207,22 @@ R1(config)#access-list 1 permit 193.0.2.0 0.0.0.255
 
 R1(config)# ip nat inside source list 1 interface Serial 2/0 overload
 \end{lstlisting}
+Od tej pory komputery wewnątrz NAT widziane są na zewnątrz pod wspólnym adresem (outside - czyli 193.0.3.1).\\
+Sprawdziliśmy działanie przez poleceniem ping: z pracowni dało się spingować serwer, natomiast serwer nie mógł pingować komputerów znajdujących się za NATem.
  
+%===========================================================
+
 \subsection{DHCP}
 Router R1 będzie przydzielał adresy IP dla komputerów obu pracowni poprzez DHCP.\\
 Najpierw konfigurujemy pule adresów:
 \begin{lstlisting}
-R1(config)\#ip dhcp pool PracowniaParter
-R1(dhcp-config)\#network 193.0.1.0 255.255.255.0
-R1(dhcp-config)\#default-router 193.0.1.1
+R1(config)#ip dhcp pool PracowniaParter
+R1(dhcp-config)#network 193.0.1.0 255.255.255.0
+R1(dhcp-config)#default-router 193.0.1.1
 
-R1(config)\#ip dhcp pool PracowniaPietro
-R1(dhcp-config)\#network 193.0.2.0 255.255.255.0
-R1(dhcp-config)\#default-router 193.0.2.1
+R1(config)#ip dhcp pool PracowniaPietro
+R1(dhcp-config)#network 193.0.2.0 255.255.255.0
+R1(dhcp-config)#default-router 193.0.2.1
 \end{lstlisting}
 Następnie wyłączamy adresy przydzielone statycznie (interfejs routera):
 \begin{lstlisting}
@@ -226,8 +230,6 @@ R1(config)#ip dhcp excluded-address 193.0.1.1
 R1(config)#ip dhcp excluded-address 193.0.2.1
 \end{lstlisting}
 
-
-%===========================================================
 Sprawdzamy działanie DHCP poleceniem show ip dhcp binding:
 \begin{lstlisting}
 IP address       Client-ID/              Lease expiration        Type
