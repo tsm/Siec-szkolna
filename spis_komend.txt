@@ -1,0 +1,80 @@
+                                                                     
+                                                                     
+                                                                     
+                                             
+1 Konfiguracja hosta
+	1.1 Konfiguracja IP, maski, bramy:
+
+		Start -> Panel Sterowania -> Po³¹czenia Sieciowe ->
+		-> W³aœciwoœæi (dla danego po³¹czenia) -> Protokó³ internetowy w wersji 4(6) -> 
+		-> W³aœciwoœci -> Wpisanie danych w odpowiednich polach
+
+2 Ogólna konfiguracja routera:
+	2.1 Konfiguracja interfejsu Fe
+		Router# conf t
+		Router(config)# interface FastEthernet <numer_interfejsu>
+		Router(config-if)# ip address <adres_IP> <maska>
+		Router(config-if)# no shutdown
+		Router(config-if)# exit
+
+	2.2 Konfiguracja interfejscu szeregowego
+		Router# conf t
+		Router(config)# interface serial <numer_interfejsu>
+		Router(config-if)# clockrate 128000
+		Router(config-if)# no shutdown
+		Router(config-if)# exit
+		
+	2.3 Przyk³adowa konfiguracja routera ³¹cz¹cego dwie sieci VLAN
+		Router# conf t
+		Router(config)# interface FastEthernet 0/0.1
+		Router(config-if)# encapsulation dot1q <numer_VLAN>
+		Router(config-if)# exit
+		Router(config)# interface FastEthernet 0/0.2
+		Router(config-if)# encapsulation dot1q <numer_VLAN>
+		Router(config-if)# exit
+		
+	2.4 Przyk³adowa konfiguracja routera w celu utworzenia tunelu IPv6
+		???? Da siê zrobic tunel IPv6 w sieci IPv4?? Bo wszedzie gdzie szukam jest na odwrót.  ????
+	
+3 Ogólna konfiguracja switcha
+	3.1 Tworzenie sieci VLAN
+		Switch# vlan database
+		Switch(vlan)# vlan <numer_VLAN> name <nazwa_VLAN>
+		Switch(vlan)# exit
+		
+	3.2 Przypisanie portu do danej sieci VLAN 
+		Switch(config)# interface FastEthernet <numer_interfejsu>
+		Switch(config-if)# switchport mode access
+		Switch(config-if)# switchport access vlan <numer_VLAN>
+		Switch(config-if)# exit
+		
+	3.3 Konfiguracja ³¹cza trunk
+		Switch(config)# interface FastEthernet <numer_interfejsu>
+		Switch(config-if)# switchport mode trunk
+		Switch(config-if)# switchport trunk encapsulation dot1q
+		Switch(config-if)# exit
+		
+		
+4 ACL
+	4.1 Konfigiracja routera nr 1 (tego z lewej)
+		Router# conf t
+		Router(config)#acces-list 1 deny 193.0.0.0 0.0.0.64   //przy za³o¿eniu, ¿e mo¿na dodaæ od razu ca³¹ sieæ
+		Router(config)#acces-list 2 deny 193.0.0.64 0.0.0.64
+		Router(config)# interface FastEthernet <interfejs z lewej>
+		Router(config-if)#ip access-group 2 in
+		Router(config)# interface FastEthernet <interfejs z prawej>
+		Router(config-if)#ip access-group 1 in
+		
+	4.2 Konfigiracja routera nr 2 (tego z prawej)		
+		Router# conf t
+		Router(config)#acces-list 1 deny 193.0.0.0 0.0.0.64   //przy za³o¿eniu, ¿e mo¿na dodaæ od razu ca³¹ sieæ		
+		Router(config)#acces-list 2 deny 193.0.0.64 0.0.0.64
+		Router(config)# interface FastEthernet <interfajs do switcha>
+		Router(config-if)#ip access-group 1 in
+		Router(config-if)#ip access-group 2 in		
+		Router(config-if)#exit
+		
+		
+		
+		
+	
