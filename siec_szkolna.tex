@@ -117,6 +117,8 @@ R1(config)#access-list 1 permit 193.0.2.0 0.0.0.255
 
 R1(config)# ip nat inside source list 1 interface Serial 2/0 overload
 \end{lstlisting}
+Od tej pory komputery wewnątrz NAT widziane są na zewnątrz pod wspólnym adresem (outside - czyli 193.0.3.1).\\
+Sprawdziliśmy działanie przez poleceniem ping: z pracowni dało się spingować serwer, natomiast serwer nie mógł pingować komputerów znajdujących się za NATem.
  
 \subsection{DHCP}
 Router R1 będzie przydzielał adresy IP dla komputerów obu pracowni poprzez DHCP.\\
