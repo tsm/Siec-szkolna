@@ -78,7 +78,11 @@ Przyjęliśmy następujące założenia odnośnie sieci:
 \item Dodatkowo istnieje potrzeba podłączenia do sieci sekretariatu, gabinetu dyrektora oraz komputera w pokoju nauczycielskim
 \item W sieci pracuje również serwer WWW
 \item Adresy komputerów w całej sieci przydzielane są przez DHCP
+\item Sieć będzie działać w topologii rozszerzonej gwiazdy
 \end{itemize}
+\subsection {Urządzenia i okablowanie}
+Przy realizacji naszej sieci skorzystalibyśmy z dwóch routerów oraz paru switchy. Routery zestawione są serialami, natomiast wszystkie pozostałe urządzenia za pomocą portów FastEthernet połączone "skrętką" (kablem typu UTP kategorii 5).\\
+Kablem skrosowanym połączyliśmy urządzenia tego samego typu (Router-Komputer, Switch-Switch) natomiast prostym urządzenia różnego typu (Router-Switch, Switch-Komputer).
 
 \section{Projekt sieci}
 \includegraphics[scale=0.7]{siec.png}  
