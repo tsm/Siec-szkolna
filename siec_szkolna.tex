@@ -82,17 +82,23 @@ Przyjęliśmy następujące założenia odnośnie sieci:
 \item Sieć będzie działać w topologii rozszerzonej gwiazdy
 \end{itemize}
 \subsection {Urządzenia i okablowanie}
-Przy realizacji naszej sieci skorzystalibyśmy z dwóch routerów oraz paru switchy. Routery zestawione są serialami, natomiast wszystkie pozostałe urządzenia za pomocą portów FastEthernet połączone "skrętką" (kablem typu UTP kategorii 5).\\
+Przy realizacji naszej sieci skorzystalibyśmy z dwóch routerów oraz paru switchy. Routery zestawione są serialami, natomiast wszystkie pozostałe urządzenia za pomocą portów FastEthernet połączone skrętką (kablem typu UTP kategorii 5).\\
 Kablem skrosowanym połączyliśmy urządzenia tego samego typu (Router-Komputer, Switch-Switch) natomiast prostym urządzenia różnego typu (Router-Switch, Switch-Komputer).
 
 \section{Projekt sieci}
-\includegraphics[scale=0.7]{siec.png}  
+\includegraphics[scale=0.6]{siec.png}  
 
 \section{Konfiguracja}
-\subsection {Konfigurcja routera R1}
-
-\subsection {DHCP}
-Router R1 będzie przydzielał adresy IP dla komputerów obu pracowni, w tym celu należy go odpowienio skonfigurować:
+\subsection{Konfiguracja interfejsów routerów}
+\subsection{Listy ACL}
+\subsection{Most IPv6}
+\subsection{STP}
+\subsection{Routing RIP}
+\subsection{Routing OSPF}
+\subsection{NAT}
+\subsection{DHCP}
+Router R1 będzie przydzielał adresy IP dla komputerów obu pracowni poprzez DHCP.\\
+Najpierw konfigurujemy pule adresów:
 \begin{lstlisting}
 R1(config)#ip dhcp pool PracowniaParter
 R1(dhcp-config)#network 193.0.1.0 255.255.255.0
@@ -101,9 +107,14 @@ R1(dhcp-config)#default-router 193.0.1.1
 R1(config)#ip dhcp pool PracowniaPietro
 R1(dhcp-config)#network 193.0.2.0 255.255.255.0
 R1(dhcp-config)#default-router 193.0.2.1
-
-s
 \end{lstlisting}
+Następnie wyłączamy adresy przydzielone statycznie (interfejs routera):
+\begin{lstlisting}
+R1(config)#ip dhcp excluded-address 193.0.1.1
+R1(config)#ip dhcp excluded-address 193.0.2.1
+\end{lstlisting}
+
+
 \section{Podsumowanie i wnioski}
 
 \end{document}
