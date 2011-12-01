@@ -122,13 +122,13 @@ R1(config)# ip nat inside source list 1 interface Serial 2/0 overload
 Router R1 będzie przydzielał adresy IP dla komputerów obu pracowni poprzez DHCP.\\
 Najpierw konfigurujemy pule adresów:
 \begin{lstlisting}
-R1(config)#ip dhcp pool PracowniaParter
-R1(dhcp-config)#network 193.0.1.0 255.255.255.0
-R1(dhcp-config)#default-router 193.0.1.1
+R1(config)\#ip dhcp pool PracowniaParter
+R1(dhcp-config)\#network 193.0.1.0 255.255.255.0
+R1(dhcp-config)\#default-router 193.0.1.1
 
-R1(config)#ip dhcp pool PracowniaPietro
-R1(dhcp-config)#network 193.0.2.0 255.255.255.0
-R1(dhcp-config)#default-router 193.0.2.1
+R1(config)\#ip dhcp pool PracowniaPietro
+R1(dhcp-config)\#network 193.0.2.0 255.255.255.0
+R1(dhcp-config)\#default-router 193.0.2.1
 \end{lstlisting}
 Następnie wyłączamy adresy przydzielone statycznie (interfejs routera):
 \begin{lstlisting}
