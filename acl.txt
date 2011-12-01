@@ -1,9 +1,7 @@
-Listy kontroli dosêpu (ACL) maj¹ za zadanie uniemo¿liwiæ komunikowanie siê pracowni komputerowych z komputerami znajduj¹cymi siê w sekretariacie. Na routerze R2 tworzone s¹ 2 acces listy na których znajduj¹ siê sieci z pracowni komputerowych wraz z maskami.
+Listy kontroli dosêpu (ACL) maj¹ za zadanie uniemo¿liwiæ komunikowanie siê pracowni komputerowych z komputerami znajduj¹cymi siê w sekretariacie. Na routerze R2 tworzona jest acces lista na której znajduje siê adres NAT pracowni komputerowych wraz z odwrócon¹ mask¹.
 
 		Router# conf t
-		Router(config)#acces-list 1 deny 193.0.1.0 0.0.0.255   //przy za³o¿eniu, ¿e mo¿na dodaæ od razu ca³¹ sieæ		
-		Router(config)#acces-list 2 deny 193.0.2.0 0.0.0.255
-		Router(config)# interface FastEthernet <interfajs do switcha>
-		Router(config-if)#ip access-group 1 in
-		Router(config-if)#ip access-group 2 in		
+		Router(config)#acces-list 1 deny 193.0.3.1 0.0.0.255 	
+		Router(config)# interface FastEthernet <interfejs do switcha>
+		Router(config-if)#ip access-group 1 in	
 		Router(config-if)#exit 
