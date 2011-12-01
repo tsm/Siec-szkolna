@@ -1,0 +1,91 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{anysize}
+\usepackage{makeidx}
+\usepackage{hyperref}
+
+
+
+\makeatletter
+\renewcommand{\maketitle}{
+\begin{titlepage}
+\begin{center}
+
+\LARGE{AKADEMIA GÓRNICZO-HUTNICZA}
+
+\vspace*{1cm}
+\includegraphics[scale=1.8]{agh.eps}
+\vspace*{1cm}
+
+\LARGE{im. Stanisława Staszica w Krakowie}
+
+\rule{\textwidth}{0.4mm}
+\LARGE \textsc{\@title}
+\rule{\textwidth}{0.4mm}
+
+\vspace*{5mm}
+
+
+\large
+\emph{Autorzy:}\\
+Tomasz \textsc{Czarnik}\\
+Krzysztof \textsc{Garcarz}\\
+Krzysztof \textsc{Śmiłek}\\
+
+\vfill
+\vspace*{\stretch{8}}
+\rule{\textwidth}{0.4mm}
+
+\large{Wydział Elektroniki, Automatyki, Informatyki i Elektrotechniki}\\
+\large{Katedra Automatyki}\\
+\large{Laboratorium Biocybernetyki}\\
+\vspace*{\stretch{7}}
+\@date
+
+\end{center}
+
+\end{titlepage}
+}
+\makeatother
+
+\title{Projekt sieci LAN dla szkoły średniej}
+\date{\today}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Wstęp}
+\subsection{Cel projektu}
+Naszym celem jest stworzenie projektu sieci LAN na potrzeby szkoły średniej przy pomocy technologii poznanych na zajęciach z przedmiotu Administrowanie sieciami lokalnymi. Staraliśmy się użyć, w rozsądnych granicach jak najwięcej poznanych narzędzi.
+\subsection{Założenia projektu}
+Przyjęliśmy następujące założenia odnośnie sieci:
+\begin{itemize}
+\item Szkoła posiada dwie pracownie komputerowe na parterze i na pierwszym piętrze, każda z nich liczy po 12 komputerów
+\item Dodatkowo istnieje potrzeba podłączenia do sieci sekretariatu, gabinetu dyrektora oraz komputera w pokoju nauczycielskim
+\item W sieci pracuje również serwer WWW
+\item Adresy komputerów w całej sieci przydzielane są przez DHCP
+\end{itemize}
+
+\section{Projekt sieci}
+\includegraphics[scale=0.7]{siec.png}  
+
+\section{Konfiguracja}
+\subsection {Konfigurcja routera R1}
+
+\section{Podsumowanie i wnioski}
+
+\end{document}
