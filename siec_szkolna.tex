@@ -89,13 +89,88 @@ Kablem skrosowanym połączyliśmy urządzenia tego samego typu (Router-Komputer
 \includegraphics[scale=0.6]{siec.png}  
 
 \section{Konfiguracja}
+
+%===========================================================
 \subsection{Konfiguracja interfejsów routerów}
+{\bf R1:}\\
+\noindent
+Ustawienie subinterfejsów FastEthernet:
+\begin{lstlisting}
+R1(config)#interface fastEthernet 0/0.1
+R1(config-subif)#ip address 193.0.1.1 255.255.255.0
+R1(config-subif)#no shutdown
+R1(config-subif)#encapsulation dot1Q 1
+
+R1(config)#interface fastEthernet 0/0.2
+R1(config-subif)#ip address 193.0.2.1 255.255.255.0
+R1(config-subif)#no shutdown
+R1(config-subif)#encapsulation dot1Q 2
+\end{lstlisting}
+\noindent
+Ustawienie interfejsu serial:
+\begin{lstlisting}
+R1(config)#interface Serial2/0
+R1(config-if)#ip address 193.0.3.1 255.255.255.0
+R1(config-if)#clock rate 128000
+\end{lstlisting}
+
+\noindent
+{\bf R2:}\\
+Ustawienie interfejsów FastEthernet:
+\begin{lstlisting}
+R2(config)#interface fastEthernet 0/0
+R2(config-subif)#ip address 193.0.5.1 255.255.255.0
+R2(config-subif)#no shutdown
+
+R2(config)#interface fastEthernet 1/0
+R2(config-subif)#ip address 193.0.4.1 255.255.255.0
+R2(config-subif)#no shutdown
+\end{lstlisting}
+\noindent
+Ustawienie interfejsu serial:
+\begin{lstlisting}
+R2(config)#interface Serial2/0
+R2(config-if)#ip address 193.0.3.1 255.255.255.0
+\end{lstlisting}
+
+%===========================================================
+\subsection{Konfiguracja switcha Sw1}
+Stworzenie dodatkowego vlana o numerze 2:
+\begin{lstlisting}
+Sw1(config)#vlan 2
+Sw1(config-vlan)#name VLan2
+\end{lstlisting}
+Stworzenie łącza trunk:
+\begin{lstlisting}
+Sw1(config)#interface FastEthernet0/1
+Sw1(config-if)#switchport mode trunk
+Sw1(config-if)# switchport trunk encapsulation dot1q
+\end{lstlisting}
+Przypisanie portów do danych VLANów (przypisujemy tylko do VLAN 2, bo reszta połączeń jest automatycznie przypisywana do VLAN 1):
+\begin{lstlisting}
+Sw1(config)#interface FastEthernet1/1
+Sw1(config-if)#switchport mode access
+Sw1(config-if)#switchport access vlan 2
+\end{lstlisting}
+%===========================================================
 \subsection{Listy ACL}
+
+%===========================================================
 \subsection{Most IPv6}
+
+%===========================================================
 \subsection{STP}
+
+%===========================================================
 \subsection{Routing RIP}
+
+%===========================================================
 \subsection{Routing OSPF}
+
+%===========================================================
 \subsection{NAT}
+
+%===========================================================
 \subsection{DHCP}
 Router R1 będzie przydzielał adresy IP dla komputerów obu pracowni poprzez DHCP.\\
 Najpierw konfigurujemy pule adresów:
@@ -115,6 +190,7 @@ R1(config)#ip dhcp excluded-address 193.0.2.1
 \end{lstlisting}
 
 
+%===========================================================
 \section{Podsumowanie i wnioski}
 
 \end{document}
