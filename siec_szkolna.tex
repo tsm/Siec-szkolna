@@ -157,14 +157,19 @@ R2(config-if)# ???
 
 %===========================================================
 \subsection{Listy ACL}
-Listy kontroli dosępu (ACL) mają za zadanie uniemożliwić komunikowanie się pracowni komputerowych z komputerami znajdującymi się w sekretariacie. Na routerze R2 tworzona jest acces lista na której znajduje się adres NAT pracowni komputerowych wraz z odwróconą maską.
+Listy kontroli dosępu (ACL) mają za zadanie uniemożliwić komunikowanie się pracowni komputerowych z komputerami znajdującymi się w sekretariacie za wyjątkiem polecenia ping. Na routerze R1 tworzona jest access lista:
 \begin{lstlisting}
-R2# conf t
-R2(config)#acces-list 1 deny 193.0.3.1 0.0.0.255 	
-R2(config)# interface FastEthernet 1/0
-R2(config-if)#ip access-group 1 in	
-R2(config-if)#exit 
+R1# conf t
+R1(config)#access-list 101 permit icmp any 193.0.4.0 0.0.0.255 
+R1(config)#access-list 101 deny ip 193.0.0.0 0.0.255.255 193.0.4.0 0.0.0.255
 \end{lstlisting}
+Następnie aktywujemy access listę na danym porcie:
+\begin{lstlisting}
+R1(config)# interface Serial 0/3/0
+R1(config-if)#ip access-group 101 out	
+R1(config-if)#exit 
+\end{lstlisting}
+Przy takiej konfiguracji powinno się dać z komputerów pracowni jedynie pingować komputer w sekretariacie.
 
 %===========================================================
 \subsection{STP}
