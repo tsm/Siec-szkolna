@@ -1,0 +1,96 @@
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R1
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip name-server 0.0.0.0
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/0.1
+ encapsulation dot1Q 1 native
+ ip address 193.0.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.2
+ encapsulation dot1Q 2
+ ip address 193.0.2.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet1/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial2/0
+ ip address 193.0.3.1 255.255.255.0
+ ip nat outside
+ clock rate 128000
+!
+interface Serial3/0
+ no ip address
+ shutdown
+!
+interface FastEthernet4/0
+ no ip address
+ shutdown
+!
+interface FastEthernet5/0
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ redistribute rip subnets 
+ network 193.0.3.0 0.0.0.255 area 1
+!
+ip nat inside source list 1 interface Serial2/0 overload
+ip classless
+!
+!
+access-list 1 permit 193.0.1.0 0.0.0.255
+access-list 1 permit 193.0.2.0 0.0.0.255
+!
+ip dhcp excluded-address 193.0.1.1
+ip dhcp excluded-address 193.0.2.1
+!
+ip dhcp pool Parter
+ network 193.0.1.0 255.255.255.0
+ default-router 193.0.1.1
+ip dhcp pool Pietro
+ network 193.0.2.0 255.255.255.0
+ default-router 193.0.2.1
+!
+!
+!
+!
+!
+line con 0
+line vty 0 4
+ login
+!
+!
+!
+end
+
