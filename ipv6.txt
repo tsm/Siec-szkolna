@@ -1,0 +1,36 @@
+R1# conf t
+R1(config)#interface tunnel0	
+R1(config-if)#ipv6 address 2001:db8:c003:1104::1/64
+R1(config-if)#tunnel source serial 0/3/0
+R1(config-if)#tunnel destination 193.0.3.2
+R1(config-if)#tunnel mode ipv6ip
+R1(config-if)#exit 
+
+R1(config)# interface fastEthernet 0/1
+R1(config-if)#ipv6 address 2001:db8:c003:111e::2/64
+R1(config-if)#no shutdown
+R1(config-if)#exit
+
+R1(config)#interface serial 0/3/0
+R1(config-if)#ip address 193.0.3.1 255.255.255.252
+R1(config-if)#clock rate 56000
+R1(config-if)#no shutdown 
+R1(config-if)#exit
+
+
+R2(config)#interface tunnel0	
+R2(config-if)#ipv6 address 2001:db8:c003:1104::2/64
+R2(config-if)#tunnel source serial 0/3/0
+R2(config-if)#tunnel destination 193.0.3.1
+R2(config-if)#tunnel mode ipv6ip
+R2(config-if)#exit 
+
+R2(config)# interface fastEthernet 0/0
+R2(config-if)#ipv6 address 2001:db8:c003:111f::2/64
+R2(config-if)#no shutdown
+R2(config-if)#exit
+
+R2(config)#interface serial 0/3/0
+R2(config-if)#ip address 193.0.3.2 255.255.255.252
+R2(config-if)#no shutdown 
+R2(config-if)#exit
