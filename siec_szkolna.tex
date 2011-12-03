@@ -172,13 +172,17 @@ Sw1(config-vlan)#name VLan2
 {\bf Sw1}\\
 Stworzenie łącza trunk:
 \begin{lstlisting}
-Sw1(config)#interface FastEthernet0/1
+Sw1(config)#interface FastEthernet 0/1
 Sw1(config-if)#switchport mode trunk
 Sw1(config-if)# switchport trunk encapsulation dot1q
 \end{lstlisting}
 Przypisanie portów do danych VLANów (przypisujemy tylko do VLAN 2, bo reszta połączeń jest automatycznie przypisywana do VLAN 1):
 \begin{lstlisting}
-Sw1(config)#interface FastEthernet1/1
+Sw1(config)#interface FastEthernet 1/1
+Sw1(config-if)#switchport mode access
+Sw1(config-if)#switchport access vlan 2
+
+Sw1(config)#interface FastEthernet 2/1
 Sw1(config-if)#switchport mode access
 Sw1(config-if)#switchport access vlan 2
 \end{lstlisting}
@@ -200,7 +204,8 @@ Listy kontroli dosępu (ACL) mają za zadanie uniemożliwić komunikowanie się 
 \begin{lstlisting}
 R1# conf t
 R1(config)#access-list 101 permit icmp any 193.0.4.0 0.0.0.255 
-R1(config)#access-list 101 deny ip 193.0.0.0 0.0.255.255 193.0.4.0 0.0.0.255
+R1(config)#access-list 101 deny ip 193.0.1.0 0.0.0.255 193.0.4.0 0.0.0.255
+R1(config)#access-list 101 deny ip 193.0.2.0 0.0.0.255 193.0.4.0 0.0.0.255
 R1(config)#access-list 101 permit ip any any
 \end{lstlisting}
 Następnie aktywujemy access listę na danym porcie:
