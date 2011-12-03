@@ -173,14 +173,14 @@ Przy takiej konfiguracji powinno się dać z komputerów pracowni jedynie pingow
 
 %===========================================================
 \subsection{STP}
-Chcemywybrać interfejs, który zostanie przełączony w stan "Alternate". W tym celu zwiększamy koszt połączenia z jednego z interfejsów.
+Aby przetestować protokół STP pomiędzy switchami Sw1 i Sw2 ustanowiliśmy dodatkowe, nadmiarowe połączenie. Chcemy wybrać interfejs, który zostanie przełączony w stan "Alternate". W tym celu zwiększamy koszt połączenia z jednego z interfejsów:
 \begin{lstlisting}
-S3>enable
-S3#conf t
-S3(config)#interface Ethernet 4/1
-S3(config-if)#spanning-tree cost 200
-S3(config-if)#exit
-S3(config)#exit
+Sw1>enable
+Sw1#conf t
+Sw1(config)#interface Ethernet 2/1
+Sw1(config-if)#spanning-tree cost 200
+Sw1(config-if)#exit
+Sw1(config)#exit
 \end{lstlisting}
 
 %===========================================================
