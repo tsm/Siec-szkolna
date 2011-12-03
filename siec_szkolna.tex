@@ -207,7 +207,6 @@ R1(config-subif)#ip nat inside
 R1(config)#interface serial 2/0
 R1(config-if)#ip nat outside
 \end{lstlisting}
-
 Tworzymy access listę opisującą zakres adresów tłumaczonych na granicy i tworzymy translację:
 \begin{lstlisting}
 R1(config)#access-list 1 permit 193.0.1.0 0.0.0.255
