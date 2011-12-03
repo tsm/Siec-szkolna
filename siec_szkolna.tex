@@ -94,8 +94,7 @@ Kablem skrosowanym połączyliśmy urządzenia tego samego typu (Router-Komputer
 \subsection{Konfiguracja interfejsów routerów}
 {\bf R1:}\\
 \noindent
-
-Ustawienie interfejsów i subinterfejsów FastEthernet:
+Ustawienie interfejsów i subinterfejsów:
 \begin{lstlisting}
 R1(config)#interface fastEthernet 0/0.1
 R1(config-subif)#ip address 193.0.1.1 255.255.255.0
@@ -106,7 +105,6 @@ R1(config)#interface fastEthernet 0/0.2
 R1(config-subif)#ip address 193.0.2.1 255.255.255.0
 R1(config-subif)#no shutdown
 R1(config-subif)#encapsulation dot1Q 2
-
 
 R1(config)#interface serial 0/3/0
 R1(config-if)#ip address 193.0.3.1 255.255.255.0
@@ -121,7 +119,7 @@ R1(config-if)#no shutdown
 
 \noindent
 {\bf R2:}\\
-Ustawienie interfejsów :
+Ustawienie interfejsów:
 \begin{lstlisting}
 R2(config)#interface fastEthernet 0/0
 R2(config-subif)#ip address 193.0.5.1 255.255.255.0
@@ -202,13 +200,13 @@ Sw1(config)#exit
 
 %===========================================================
 \subsection{Routing}
-{\bf R1:}\\
+{\bf R1:}
 \begin{lstlisting}
 R1(config)#router ospf 1
 R1(config-router)#network 193.0.3.0 0.0.0.255 area 1
 R1(config-router)#redistribute rip subnets 
  \end{lstlisting}
-{\bf R2:}\\
+{\bf R2:}
 \begin{lstlisting}
 R2(config)#router rip
 R2(config-router)#version 2
@@ -282,21 +280,19 @@ Jak widać DHCP działa poprawnie dla obu VLANów (oczywiście w rzeczywistości
 
 \noindent
 Należy ustawić odpowiednie adresy IPv6 oraz bramy domyślne na serwerach.
-
+\noindent
 Konifguracja adresów IPv6 na interfejsach:
 \begin{lstlisting}
 R1(config)# interface fastEthernet 0/1
 R1(config-if)#ipv6 address 2001:db8:c003:111e::1/64
-R1(config-if)#no shutdown
 R1(config-if)#exit
 
 R2(config)# interface fastEthernet 0/0
 R2(config-if)#ipv6 address 2001:db8:c003:111f::1/64
-R2(config-if)#no shutdown
 R2(config-if)#exit
 \end{lstlisting}
 
-
+\noindent
 Ustawienie mostka IPv6 między routerami {\bf R1 - R2} :
 \begin{lstlisting}
 R1# conf t
